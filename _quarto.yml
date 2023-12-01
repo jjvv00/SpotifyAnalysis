@@ -6,11 +6,11 @@ execute:
   echo: true
 
 book:
-  title: "YOUR PROJECT TITLE"
+  title: "Exploring Musical Tastes: A Data Analysis of Spotify Data and Song Moods"
   author:
-    - AUTHOR1 (UNI1)
-    - AUTHOR2 (UNI2)
-  repo-url: https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME
+    - Jaclyn Vu (jbv2118)
+    - Ellise Parnoff (edp2139)
+  repo-url: https://github.com/jjvv00/SpotifyAnalysis.git
   date: today
   page-footer:
     right: |
