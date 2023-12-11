@@ -5,6 +5,7 @@ We will be accessing the Spotify Web API that provides us to a vast collection o
 Our data is in the form of 4 dataframes, one for each of our top two artists. These data frames contain all of the songs for a specific artist (Taylor Swift, Fleetwood Mac, Doja Cat, and Peso Pluma). There are 39 features listed for each song. These range from basic descriptors such as song title, album, release date, to more complex features to describe the mood/tone of the songs. We will mainly utilize the danceability, energy, and valence scores for each song. The number of rows in each of these data frames is the total number of songs each artist has. Taylor Swift will have a data frame of 530 X 39. Fleetwood Mac has a data frame of size 760 X 39. Doja Cat has a data frame of size 91 X 39, and Peso Pluma has a data frame of size 57 X 39. 
 
 ## Research Plan
+
 Comparative Analysis of Top Artists:
 
 We will analyze the top two artists for each of us provided by our Spotify Wrapped. While there are methods to extract user information from the Spotify API, Spotify recently released Spotify Wrapped as mentioned earlier, so we wanted to use that feature. Based on our Spotify Wrapped, Ellise's top artists are Taylor Swift, Fleetwood Mac, Queens of the Stone Age, Bruno Mars, and Rihanna. For Jaclyn, her top artists are Doja Cat, Peso Pluma, SZA, Megan Thee Stallion, and Ariana Grande. For this project, we will be comparing the tracks and albums between our top two artists: Taylor Swift, Fleetwood Mac, Doja Cat, and Peso Pluma. 
