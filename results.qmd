@@ -75,6 +75,8 @@ ggplot(energy_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value, fill 
     axis.title.x = element_text(margin = margin(t = 12))
   )
 ```
+Ellise's top two artists overall tend to have lower energy songs than Jaclyn's top artists, although they are all pretty close on average.
+
 
 Repeat this process for the valence and danceability: 
 ```{r}
@@ -104,6 +106,8 @@ ggplot(valence_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value, fill
     axis.title.x = element_text(margin = margin(t = 12))
   )
 ```
+Since Peso Pluma and Doja Cat have the first and third highest valence scores, overall, it appears that Jaclyn likes music with a higher valence slightly more than Ellise does. 
+
 
 ```{r}
 TSdanceability_avg <- mean(TS$danceability) 
@@ -132,6 +136,8 @@ ggplot(danceability_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value,
     axis.title.x = element_text(margin = margin(t = 12))
   )
 ```
+Since Doja Cat and Peso Pluma are Jaclyn's top artists, this indicates that she prefers more danceable music than Ellise. However, this is a bit surprising considering Ellise is a dancer!
+
 
 
 Now we will compare the moods of each artist based on the moods of each of their songs. This is based on James Russell's circumplex model as referenced in "Feel the Moosic: Emotion-based Music Selection and Recommendation" by Patrick Helmholz, Michael Meyer, Susanne Robra-Bissantz. In this paper, they classify songs into one of four different mood categories (happy, angry, sad, or relaxed) based on their energy and valence scores. We will use this model to display the most frequent song moods for each of our top artists. This should help us compare the moods of our music preferences. 
@@ -272,7 +278,14 @@ Again, like Doja Cat, Peso Pluma has very few songs. The large majority of them 
 
 
 
-# Citations: 
+Now that we know that Taylor Swift and Fleetwood Mac both have many more songs than Doja Cat and Peso Pluma, we want to try comparing the top 50 songs from each artist. This may even the playing field a little. 
+
+```{r}
+
+```
+
+
+## Citations: 
 
 (paper and image)
 Helmholz, P., Meyer, M., & Robra-Bissantz, S. (2019, June 12). Feel the Moosic: Emotion-based Music Selection and Recommendation. https://doi.org/10.18690/978-961-286-280-0.11 
