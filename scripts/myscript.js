@@ -28,7 +28,7 @@ Promise.all([
     const sizeScale = d3.scaleLinear().domain([0, 1]).range([5, 20]); // Adjust as needed
 
     // Create circles for each data point
-    svg.selectAll("circle")
+    const circles = svg.selectAll("circle")
       .data(allData)
       .enter()
       .append("circle")
@@ -36,7 +36,37 @@ Promise.all([
       .attr("cy", d => yScale(+d.valence))
       .attr("r", d => sizeScale(+d.energy))
       .attr("fill", "steelblue")
-      .attr("opacity", 0.7);
+      .attr("opacity", 0.5);
+
+    // Define a tooltip div
+    const tooltip = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+
+    // Add mouseover event to display tooltip
+    circles.on("mouseover", function (event, d) {
+      tooltip.transition()
+        .duration(200)
+        .style("opacity", 0.9);
+
+      tooltip.html(
+        `<strong>${d.artist_name}</strong><br>` +
+        `<em>${d.track_name}</em><br>` +
+        `Album: ${d.album_name}<br>` +
+        `Danceability: ${d.danceability}<br>` +
+        `Valence: ${d.valence}<br>` +
+        `Energy: ${d.energy}`
+      )
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 28) + "px");
+    });
+
+    // Add mouseout event to hide tooltip
+    circles.on("mouseout", function () {
+      tooltip.transition()
+        .duration(500)
+        .style("opacity", 0);
+    });
 
     // Add axis labels
     svg.append("text")
