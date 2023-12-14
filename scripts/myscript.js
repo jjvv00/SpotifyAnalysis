@@ -51,11 +51,14 @@ Promise.all([
       .attr("class", "tooltip")
       .style("opacity", 0);
 
+
     // Add mouseover event to display tooltip
     circles.on("mouseover", function (event, d) {
       tooltip.transition()
         .duration(200)
-        .style("opacity", 0.9);
+        .style("opacity", 0.9)
+        .style("background-color", "white") // Set background color to white
+        .style("color", "black"); // Set text color to black
 
       tooltip.html(
         `<strong>${d.artist_name}</strong><br>` +
