@@ -177,7 +177,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#technical-description" id="toc-technical-description" class="nav-link active" data-scroll-target="#technical-description"><span class="header-section-number">2.1</span> Technical Description</a></li>
-  <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.2</span> Missing Value Analysis</a></li>
+  <li><a href="#research-plan" id="toc-research-plan" class="nav-link" data-scroll-target="#research-plan"><span class="header-section-number">2.2</span> Research Plan</a></li>
+  <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.3</span> Missing Value Analysis</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jjvv00/SpotifyAnalysis.git/edit/main/data.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/jjvv00/SpotifyAnalysis.git/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -204,14 +205,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="technical-description" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="technical-description"><span class="header-section-number">2.1</span> Technical Description</h2>
 <p>We will be accessing the Spotify Web API that provides us to a vast collection of music-related data. This could include information about tracks, albums, artists, and user-specific information. This data is collected and maintained by Spotify, a leading music streaming platform. Thus, we are assuming that Spotify is able to update the API frequently. There are not any obvious issues or problems with the data. We plan to retrieve data through the “spotifyr” R wrapper for pulling track audio features and other information from Spotify’s Web API in bulk <a href="https://www.rcharlie.com/spotifyr/">(Thompson, Et al., 2022)</a>. The authors are Josia Parry, Donal Phipps, Tom Wolf, and Charlie Thompson, who also maintains the package. According to Thomposon’s Github, the last changes are from December 14, 2022.</p>
-<p>Our data is in the form of 4 dataframes, one for each of our top two artists. These data frames contain all of the songs for a specific artist (Taylor Swift, Fleetwood Mac, Doja Cat, and Peso Pluma). There are 39 features listed for each song. These range from basic descriptors such as song title, album, release date, to more complex features to describe the mood/tone of the songs. We will mainly utilize the danceability, energy, and valence scores for each song. The number of rows in each of these data frames is the total number of songs each artist has. Taylor Swift will have a data frame of 530 X 39. Fleetwood Mac has a data frame of size 760 X 39. Doja Cat has a data frame of size 91 X 39, and Peso Pluma has a data frame of size 57 X 39.<br>
-## Research Plan Comparative Analysis of Top Artists:</p>
-<p>We will analyze the top two artists for each of us provided by our Spotify Wrapped.</p>
+<p>Our data is in the form of 4 dataframes, one for each of our top two artists. These data frames contain all of the songs for a specific artist (Taylor Swift, Fleetwood Mac, Doja Cat, and Peso Pluma). There are 39 features listed for each song. These range from basic descriptors such as song title, album, release date, to more complex features to describe the mood/tone of the songs. We will mainly utilize the danceability, energy, and valence scores for each song. The number of rows in each of these data frames is the total number of songs each artist has. Taylor Swift will have a data frame of 530 X 39. Fleetwood Mac has a data frame of size 760 X 39. Doja Cat has a data frame of size 91 X 39, and Peso Pluma has a data frame of size 57 X 39.</p>
+</section>
+<section id="research-plan" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="research-plan"><span class="header-section-number">2.2</span> Research Plan</h2>
+<p>Comparative Analysis of Top Artists:</p>
+<p>We will analyze the top two artists for each of us provided by our Spotify Wrapped. While there are methods to extract user information from the Spotify API, Spotify recently released Spotify Wrapped as mentioned earlier, so we wanted to use that feature. Based on our Spotify Wrapped, Ellise’s top artists are Taylor Swift, Fleetwood Mac, Queens of the Stone Age, Bruno Mars, and Rihanna. For Jaclyn, her top artists are Doja Cat, Peso Pluma, SZA, Megan Thee Stallion, and Ariana Grande. For this project, we will be comparing the tracks and albums between our top two artists: Taylor Swift, Fleetwood Mac, Doja Cat, and Peso Pluma.</p>
 <p>Exploring Album Moods:</p>
 <p>Leveraging the Spotify API’s audio features, particularly valence and energy, we can analyze the mood dynamics of artists’ albums. Valence represents the musical positivity, while energy represents the intensity and activity. By aggregating these features at the album level, we gain insights into the overall emotional content of each album. The Spotify R package allows us to extract and process this information efficiently, enabling us to explore patterns and themes in the emotional landscape of diverse artists. By utilizing the <code>get_audio_features</code> function from the “spotifyr,” we can obtain the valence, danceability, and energy features for each track. Then. we can aggregate these features at the album level to represent the overall mood. Lastly, we can analyze patterns and trends in mood dynamics across different artists’ albums.</p>
 </section>
-<section id="missing-value-analysis" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.2</span> Missing Value Analysis</h2>
+<section id="missing-value-analysis" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.3</span> Missing Value Analysis</h2>
 <div class="cell">
 <details>
 <summary>Code</summary>
