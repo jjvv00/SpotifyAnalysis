@@ -160,19 +160,119 @@ ggplot(TS, aes(x = valence, y = energy, color = quadrant)) +
   geom_vline(xintercept = 0.5, linetype = "dashed") +  
   geom_hline(yintercept = 0.5, linetype = "dashed") +
   labs(
-    title = "Scatter Plot of Valence vs. Energy in Taylor Swift's songs", subtitle = "Each quartile represents a different mood",
+    title = expression("Scatter Plot of the Mood of Every" ~ bold("Taylor Swift") ~ "Song "), subtitle = "Calculated based on the energy/valence of each song",
     x = "Valence",
     y = "Energy",
     color = "Artist") +
   scale_color_manual(values = quadrant_colors) +
   theme(legend.position = "right")
 ```
+It appears that the majority of Taylor Swift's songs are angry and happy. This makes sense as her songs are typically very passionate and have a strong message. However, I question how well these calculations can be trusted because using this method, her song "I Knew You Were Trouble." was classified as relaxed when it should definitely be considered angry. 
+
+
+```{r}
+FM <- FM %>%
+  mutate(
+    quadrant = case_when(
+      valence >= 0.5 & energy >= 0.5 ~ "Happy",
+      valence < 0.5 & energy >= 0.5 ~ "Angry",
+      valence < 0.5 & energy < 0.5 ~ "Sad",
+      TRUE ~ "Relaxed"
+    )
+  )
+
+quadrant_colors <- c(
+  "Happy" = "green3",
+  "Angry" = "#FA0000CF",
+  "Sad" = "#8D6A9F",
+  "Relaxed" = "#63D2FF"
+)
+
+ggplot(FM, aes(x = valence, y = energy, color = quadrant)) +
+  geom_point(size = 1) +
+  xlim(0, 1) + ylim(0, 1) +  
+  geom_vline(xintercept = 0.5, linetype = "dashed") +  
+  geom_hline(yintercept = 0.5, linetype = "dashed") +
+  labs(
+    title = expression("Scatter Plot of the Mood of Every" ~ bold("Fleetwood Mac") ~ "Song "), subtitle = "Calculated based on the energy/valence of each song",
+    x = "Valence",
+    y = "Energy",
+    color = "Artist") +
+  scale_color_manual(values = quadrant_colors) +
+  theme(legend.position = "right")
+```
+Fleetwood Mac appears to have a pretty even distribution of moods across their songs. This makes sense because they have the most songs out of all artists in our study and they have been making music over many decades. It appears that they have the most happy songs overall.
+
+```{r}
+DC <-DC %>%
+  mutate(
+    quadrant = case_when(
+      valence >= 0.5 & energy >= 0.5 ~ "Happy",
+      valence < 0.5 & energy >= 0.5 ~ "Angry",
+      valence < 0.5 & energy < 0.5 ~ "Sad",
+      TRUE ~ "Relaxed"
+    )
+  )
+
+quadrant_colors <- c(
+  "Happy" = "green3",
+  "Angry" = "#FA0000CF",
+  "Sad" = "#8D6A9F",
+  "Relaxed" = "#63D2FF"
+)
+
+ggplot(DC, aes(x = valence, y = energy, color = quadrant)) +
+  geom_point(size = 1) +
+  xlim(0, 1) + ylim(0, 1) +  
+  geom_vline(xintercept = 0.5, linetype = "dashed") +  
+  geom_hline(yintercept = 0.5, linetype = "dashed") +
+  labs(
+    title = expression("Scatter Plot of the Mood of Every" ~ bold("Doja Cat") ~ "Song "), subtitle = "Calculated based on the energy/valence of each song",
+    x = "Valence",
+    y = "Energy",
+    color = "Artist") +
+  scale_color_manual(values = quadrant_colors) +
+  theme(legend.position = "right")
+```
+Immediately, looking at this plot I notice how many fewer songs Doja Cat has compared to Taylor Swift and Fleetwood Mac. Although the majority of them appear to be angry or happy, the difference in the sample sizes between artists makesit harder to compare them. This information was not visible to us in the bar graphs.
+
+
+```{r}
+PP <- PP %>%
+  mutate(
+    quadrant = case_when(
+      valence >= 0.5 & energy >= 0.5 ~ "Happy",
+      valence < 0.5 & energy >= 0.5 ~ "Angry",
+      valence < 0.5 & energy < 0.5 ~ "Sad",
+      TRUE ~ "Relaxed"
+    )
+  )
+
+quadrant_colors <- c(
+  "Happy" = "green3",
+  "Angry" = "#FA0000CF",
+  "Sad" = "#8D6A9F",
+  "Relaxed" = "#63D2FF"
+)
+
+ggplot(PP, aes(x = valence, y = energy, color = quadrant)) +
+  geom_point(size = 1) +
+  xlim(0, 1) + ylim(0, 1) +  
+  geom_vline(xintercept = 0.5, linetype = "dashed") +  
+  geom_hline(yintercept = 0.5, linetype = "dashed") +
+  labs(
+    title = expression("Scatter Plot of the Mood of Every" ~ bold("Peso Pluma") ~ "Song "), subtitle = "Calculated based on the energy/valence of each song",
+    x = "Valence",
+    y = "Energy",
+    color = "Artist") +
+  scale_color_manual(values = quadrant_colors) +
+  theme(legend.position = "right")
+```
+Again, like Doja Cat, Peso Pluma has very few songs. The large majority of them are considered happy. 
 
 
 
-
-
-#Citations: 
+# Citations: 
 
 (paper and image)
 Helmholz, P., Meyer, M., & Robra-Bissantz, S. (2019, June 12). Feel the Moosic: Emotion-based Music Selection and Recommendation. https://doi.org/10.18690/978-961-286-280-0.11 
