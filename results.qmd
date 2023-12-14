@@ -1,1 +1,180 @@
 # Results
+
+## Average energy, valence, danceability % comparisons between our top artists
+
+Get all required libraries:
+```{r}
+library(spotifyr)
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(tidyverse)
+library(forcats)
+library(ggridges)
+library(tidyr)
+library(broom)
+```
+
+In order to access Spotify's data, you must set up a Spotify Dev account. Once you do, you will get a client ID and client secret:
+```{r}
+Sys.setenv(SPOTIFY_CLIENT_ID = "d895b3472cb743c581bc155bd97d3c4e", SPOTIFY_CLIENT_SECRET = "348918affcf741d8841b9445b693c0d4")
+token <- get_spotify_access_token()
+```
+
+Create a dataframe for each artist's song collection using the spotifyr package's "get_artist_audio_features". This function produces dataframes with all of each artist's songs and multiple features about each song. We will only be using the "artist_name", "album_release_date", "danceability", "valence", "energy", "track_name", "album_name" features so we will remove the rest of them at this point. Then, we can download these dataframes as .csv files. 
+```{r}
+TS <- get_artist_audio_features('taylor swift')
+FM <- get_artist_audio_features('fleetwood mac')
+DC <- get_artist_audio_features('doja cat')
+PP <- get_artist_audio_features('peso pluma')
+
+desktop_path <- file.path(Sys.getenv("HOME"), "Desktop")
+
+# Save the data frames as CSV files
+TS <- subset(TS, select = c("artist_name", "album_release_date", "danceability", "valence", "energy", "track_name", "album_name"))
+FM <- subset(FM, select = c("artist_name", "album_release_date", "danceability", "valence", "energy", "track_name", "album_name"))
+DC <- subset(DC, select = c("artist_name", "album_release_date", "danceability", "valence", "energy", "track_name", "album_name"))
+PP <- subset(PP, select = c("artist_name", "album_release_date", "danceability", "valence", "energy", "track_name", "album_name"))
+
+
+write.csv(TS, file.path(desktop_path, "TS.csv"))
+write.csv(FM, file.path(desktop_path, "FM.csv"))
+write.csv(DC, file.path(desktop_path, "DC.csv"))
+write.csv(PP, file.path(desktop_path, "PP.csv"))
+
+# Display a message indicating the successful save
+cat("Data frames have been saved to:", desktop_path, "\n")
+```
+
+First, find the average energy across all of the songs for each artist separately. Then create a new dataframe with all four of these energy averages. We will display this data using a bar graph.
+```{r}
+TSenergy_avg <- mean(TS$energy) #2274A5
+FMenergy_avg <- mean(FM$energy) #F75C03
+DCenergy_avg <- mean(DC$energy) #D90368
+PPenergy_avg <- mean(PP$energy) #F1C40F
+
+energy_sums = c(TSenergy_avg, FMenergy_avg, DCenergy_avg, PPenergy_avg)
+labels = c("Taylor Swift", "Fleetwood Mac", "Doja Cat", "Peso Pluma")
+
+energy_data = data.frame(Label = labels, Value = energy_sums)
+
+artist_colors <- c("Taylor Swift" = "#2274A5", 
+                    "Fleetwood Mac" = "#F75C03", 
+                    "Doja Cat" = "#D90368", 
+                    "Peso Pluma" = "#F1C40F")
+
+
+ggplot(energy_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value, fill = Label)) + 
+  geom_bar(stat = "identity", color = "black") +
+  scale_x_discrete(name = "Artist") + 
+  scale_y_continuous(name = "Average energy of songs (%)", breaks = seq(0, 1, by = 0.1)) + 
+  labs(title = expression("Comparison of the" ~ bold("Energy") ~ "of Songs from Our Top Artists")) +
+  scale_fill_manual(values = artist_colors) + 
+  theme(
+    axis.title.y = element_text(margin = margin(r = 15)),  
+    axis.title.x = element_text(margin = margin(t = 12))
+  )
+```
+
+Repeat this process for the valence and danceability: 
+```{r}
+TSvalence_avg <- mean(TS$valence) 
+FMvalence_avg <- mean(FM$valence) 
+DCvalence_avg <- mean(DC$valence)
+PPvalence_avg <- mean(PP$valence)
+
+valence_sums = c(TSvalence_avg, FMvalence_avg, DCvalence_avg, PPvalence_avg)
+labels = c("Taylor Swift", "Fleetwood Mac", "Doja Cat", "Peso Pluma")
+
+valence_data = data.frame(Label = labels, Value = valence_sums)
+
+artist_colors <- c("Taylor Swift" = "#2274A5", 
+                    "Fleetwood Mac" = "#F75C03", 
+                    "Doja Cat" = "#D90368", 
+                    "Peso Pluma" = "#F1C40F")
+
+ggplot(valence_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value, fill = Label)) + 
+  geom_bar(stat = "identity", color = "black") +
+  scale_x_discrete(name = "Artist") + 
+  scale_y_continuous(name = "Average valence of songs (%)", breaks = seq(0, 1, by = 0.1))+ 
+  labs(title = expression("Comparison of the" ~ bold("Valence") ~ "of Songs from Our Top Artists")) +
+  scale_fill_manual(values = artist_colors) + 
+  theme(
+    axis.title.y = element_text(margin = margin(r = 15)),  
+    axis.title.x = element_text(margin = margin(t = 12))
+  )
+```
+
+```{r}
+TSdanceability_avg <- mean(TS$danceability) 
+FMdanceability_avg <- mean(FM$danceability) 
+DCdanceability_avg <- mean(DC$danceability) 
+PPdanceability_avg <- mean(PP$danceability) 
+
+danceability_sums = c(TSdanceability_avg, FMdanceability_avg, DCdanceability_avg, PPdanceability_avg)
+labels = c("Taylor Swift", "Fleetwood Mac", "Doja Cat", "Peso Pluma")
+
+danceability_data = data.frame(Label = labels, Value = danceability_sums)
+
+artist_colors <- c("Taylor Swift" = "#2274A5", 
+                    "Fleetwood Mac" = "#F75C03", 
+                    "Doja Cat" = "#D90368", 
+                    "Peso Pluma" = "#F1C40F")
+
+ggplot(danceability_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value, fill = Label)) + 
+  geom_bar(stat = "identity", color = "black") +
+  scale_x_discrete(name = "Artist") + 
+  scale_y_continuous(name = "Average danceability of songs (%)", breaks = seq(0, 1, by = 0.1)) + 
+  labs(title = expression("Comparison of the" ~ bold("Danceability") ~ "of Songs from Our Top Artists")) +
+  scale_fill_manual(values = artist_colors) + 
+  theme(
+    axis.title.y = element_text(margin = margin(r = 15)),  
+    axis.title.x = element_text(margin = margin(t = 12))
+  )
+```
+
+
+Now we will compare the moods of each artist based on the moods of each of their songs. This is based on James Russell's circumplex model as referenced in "Feel the Moosic: Emotion-based Music Selection and Recommendation" by Patrick Helmholz, Michael Meyer, Susanne Robra-Bissantz. In this paper, they classify songs into one of four different mood categories (happy, angry, sad, or relaxed) based on their energy and valence scores. We will use this model to display the most frequent song moods for each of our top artists. This should help us compare the moods of our music preferences. 
+```{r}
+# Mutate data: add an extra column "quadrant" to hold the mood of the song based on its energy/valence
+TS <- TS %>%
+  mutate(
+    quadrant = case_when(
+      valence >= 0.5 & energy >= 0.5 ~ "Happy",
+      valence < 0.5 & energy >= 0.5 ~ "Angry",
+      valence < 0.5 & energy < 0.5 ~ "Sad",
+      TRUE ~ "Relaxed"
+    )
+  )
+
+quadrant_colors <- c(
+  "Happy" = "green3",
+  "Angry" = "#FA0000CF",
+  "Sad" = "#8D6A9F",
+  "Relaxed" = "#63D2FF"
+)
+
+ggplot(TS, aes(x = valence, y = energy, color = quadrant)) +
+  geom_point(size = 1) +
+  xlim(0, 1) + ylim(0, 1) +  
+  geom_vline(xintercept = 0.5, linetype = "dashed") +  
+  geom_hline(yintercept = 0.5, linetype = "dashed") +
+  labs(
+    title = "Scatter Plot of Valence vs. Energy in Taylor Swift's songs", subtitle = "Each quartile represents a different mood",
+    x = "Valence",
+    y = "Energy",
+    color = "Artist") +
+  scale_color_manual(values = quadrant_colors) +
+  theme(legend.position = "right")
+```
+
+
+
+
+
+#Citations: 
+
+(paper and image)
+Helmholz, P., Meyer, M., & Robra-Bissantz, S. (2019, June 12). Feel the Moosic: Emotion-based Music Selection and Recommendation. https://doi.org/10.18690/978-961-286-280-0.11 
+
+
