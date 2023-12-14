@@ -13,8 +13,8 @@ Promise.all([
     const allData = dataArray.reduce((acc, data) => acc.concat(data), []);
 
     // Set up the SVG dimensions
-    const svgWidth = 500;
-    const svgHeight = 400;
+    const svgWidth = 800;
+    const svgHeight = 500;
 
     // Create an SVG container
     const svg = d3.select("#plot")
@@ -25,7 +25,15 @@ Promise.all([
     // Scales for x-axis, y-axis, and circle size
     const xScale = d3.scaleLinear().domain([0, 1]).range([0, svgWidth]);
     const yScale = d3.scaleLinear().domain([0, 1]).range([svgHeight, 0]);
-    const sizeScale = d3.scaleLinear().domain([0, 1]).range([5, 20]); // Adjust as needed
+    const sizeScale = d3.scaleLinear().domain([0, 1]).range([2, 7]); // Adjust as needed
+
+    // Colors for artists
+    const artistColorMap = {
+      'Taylor Swift': "#2274A5",
+      "Fleetwood Mac": "#F75C03",
+      "Doja Cat": "#D90368",
+      "Peso Pluma": "#F1C40F"
+    };
 
     // Create circles for each data point
     const circles = svg.selectAll("circle")
@@ -35,7 +43,7 @@ Promise.all([
       .attr("cx", d => xScale(+d.danceability))
       .attr("cy", d => yScale(+d.valence))
       .attr("r", d => sizeScale(+d.energy))
-      .attr("fill", "steelblue")
+      .attr("fill", d => artistColorMap[d.artist_name] || "steelblue")
       .attr("opacity", 0.5);
 
     // Define a tooltip div
