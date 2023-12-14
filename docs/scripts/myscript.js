@@ -36,7 +36,7 @@ Promise.all([
       .attr("cy", d => yScale(+d.valence))
       .attr("r", d => sizeScale(+d.energy))
       .attr("fill", "steelblue")
-      .attr("opacity", 0.7);
+      .attr("opacity", 0.5);
 
     // Define a tooltip div
     const tooltip = d3.select("body").append("div")
