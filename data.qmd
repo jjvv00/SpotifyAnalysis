@@ -15,7 +15,7 @@ Exploring Album Moods:
 Leveraging the Spotify API's audio features, particularly valence and energy, we can analyze the mood dynamics of artists' albums. Valence represents the musical positivity, while energy represents the intensity and activity. By aggregating these features at the album level, we gain insights into the overall emotional content of each album. The Spotify R package allows us to extract and process this information efficiently, enabling us to explore patterns and themes in the emotional landscape of diverse artists. By utilizing the `get_audio_features` function from the “spotifyr,” we can obtain the valence, danceability, and energy features for each track. Then. we can aggregate these features at the album level to represent the overall mood. Lastly, we can analyze patterns and trends in mood dynamics across different artists' albums.
 
 ## Missing Value Analysis
-
+The only missing values are in the "track_preview_url" column of the Taylor Swift dataframe.
 ```{r}
 library(spotifyr)
 library(dplyr)
@@ -42,6 +42,7 @@ ggplot(na_dataTS, aes(x = column, y = NA_countTS, fill = NA_countTS)) +
   theme(axis.text.x = element_text(size = 8, angle = 50, hjust = 1)) +
   geom_text(aes(label = NA_countTS), vjust = -0.5, size = 3)
 ```
+As you can see here, every element of the "track_preview_url" column is NA. However, this won't be a problem because we are not using this feature for our project. We will remove it from all dataframes.
 
 ```{r}
 # For Fleetwood Mac
@@ -60,6 +61,7 @@ ggplot(na_dataFM, aes(x = column, y = NA_countFM, fill = NA_countFM)) +
   geom_text(aes(label = NA_countFM), vjust = -0.5, size = 3)
 
 ```
+There are no NA values in this dataframe. 
 
 ```{r}
 # For Doja Cat
@@ -77,6 +79,7 @@ ggplot(na_dataDC, aes(x = column, y = NA_countDC, fill = NA_countDC)) +
   theme(axis.text.x = element_text(size = 8, angle = 50, hjust = 1)) + 
   geom_text(aes(label = NA_countDC), vjust = -0.5, size = 3)
 ```
+There are no NA values in this dataframe. 
 
 ```{r}
 # For Peso Pluma
@@ -95,6 +98,6 @@ ggplot(na_dataPP, aes(x = column, y = NA_countPP, fill = NA_countPP)) +
   theme(axis.text.x = element_text(size = 8, angle = 50, hjust = 1)) + 
   geom_text(aes(label = NA_countPP), vjust = -0.5, size = 3)
 ```
-
+There are no NA values in this dataframe. 
 
 
