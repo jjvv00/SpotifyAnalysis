@@ -1,4 +1,14 @@
 # Interactive graph
+This graph will visualize the three primary variables we have been studying: valence, danceability, and energy. Each song of each artist is plotted on the graph in their respective colors:
+
+Taylor Swift: Blue
+
+Fleetwood Mac: Orange
+
+Doja Cat: Pink
+
+Peso Pluma: Yellow
+
 <style>
   * {
     font-family: sans-serif;

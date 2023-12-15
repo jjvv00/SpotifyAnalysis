@@ -16,11 +16,49 @@ Promise.all([
     const svgWidth = 800;
     const svgHeight = 500;
 
+    const margin = { top: 40, right: 20, bottom: 50, left: 70 };
+    const chartWidth = svgWidth - margin.left - margin.right;
+    const chartHeight = svgHeight - margin.top - margin.bottom;
+
     // Create an SVG container
     const svg = d3.select("#plot")
       .append("svg")
       .attr("width", svgWidth)
       .attr("height", svgHeight);
+
+    svg.append("rect")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight)
+    .style("fill", "none")
+    .style("stroke", "black")
+    .style("stroke-width", 1);
+
+    // Add x-axis label
+    svg.append("text")
+      .attr("x", svgWidth / 2)
+      .attr("y", svgHeight - margin.bottom / 4)
+      .style("text-anchor", "middle")
+      .style("font-size", "14px")
+      .text("Danceability");
+
+    // Add y-axis label
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("x", 0 - svgHeight / 2)
+      .attr("y", margin.left / 2)
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Valence");
+
+    // Add title
+    svg.append("text")
+      .attr("x", svgWidth/5.5)
+      .attr("y", margin.top / 3) // Adjust the y-coordinate as needed
+      .style("text-anchor", "middle")
+      .style("font-size", "16px") // Adjust the font size as needed
+      .style("font-weight", "bold")
+      .text("Valence vs. Danceability vs. Energy");
+
 
     // Scales for x-axis, y-axis, and circle size
     const xScale = d3.scaleLinear().domain([0, 1]).range([0, svgWidth]);
