@@ -29,7 +29,8 @@ token <- get_spotify_access_token()
 
 ```{r}
 # For Taylor Swift 
-TS <- get_artist_audio_features('taylor swift')
+#TS <- get_artist_audio_features('taylor swift')
+TS <- read.csv("data/TS.csv")
 
 NA_countsTS <- colSums(is.na(TS))
 
@@ -37,16 +38,19 @@ na_dataTS <- data.frame(column = names(NA_countsTS), NA_countTS = NA_countsTS)
 
 ggplot(na_dataTS, aes(x = column, y = NA_countTS, fill = NA_countTS)) +
   geom_bar(stat = "identity", color = "black") +
+  scale_y_continuous(limits = c(0, max(NA_countsFM) + 1)) +
   labs(title = "Count of NAs in Each Column for Taylor Swift", x = "Column", y = "Number of NA Values") +
   theme_minimal() + 
   theme(axis.text.x = element_text(size = 8, angle = 50, hjust = 1)) +
   geom_text(aes(label = NA_countTS), vjust = -0.5, size = 3)
 ```
-As you can see here, every element of the "track_preview_url" column is NA. However, this won't be a problem because we are not using this feature for our project. We will remove it from all dataframes.
+There are no NA values in this dataframe. 
 
 ```{r}
 # For Fleetwood Mac
-FM <- get_artist_audio_features('fleetwood mac')
+
+#FM <- get_artist_audio_features('fleetwood mac')
+FM <- read.csv("data/FM.csv")
 
 NA_countsFM <- colSums(is.na(FM))
 
@@ -65,7 +69,9 @@ There are no NA values in this dataframe.
 
 ```{r}
 # For Doja Cat
-DC <- get_artist_audio_features('doja cat')
+
+#DC <- get_artist_audio_features('doja cat')
+DC <- read.csv("data/DC.csv")
 
 NA_countsDC <- colSums(is.na(DC))
 
@@ -83,8 +89,9 @@ There are no NA values in this dataframe.
 
 ```{r}
 # For Peso Pluma
-PP <- get_artist_audio_features('peso pluma')
-View(PP)
+
+#PP <- get_artist_audio_features('peso pluma')
+PP <- read.csv("data/PP.csv")
 
 NA_countsPP <- colSums(is.na(PP))
 
