@@ -304,6 +304,8 @@ ggplot(average_data, aes(x = album_release_date)) +
   )
 ```
 
+The most notable trends in this plot are the low average danceability, valence, and energy values around the years 2020-2022. This is really interesting because this is around the same time as the COVID-19 pandemic.
+
 ```{r}
 FM$album_release_date <- as.Date(FM$album_release_date)
 
@@ -337,6 +339,8 @@ ggplot(average_data, aes(x = album_release_date)) +
   )
 ```
 
+This plot is all over the place. Fleetwood Mac has a very large list of songs, many with very different sounds. Luckily, for the task of comparing Ellise and Jaclyn's music tastes over time, this plot wouldn't be very useful anyway. Many Fleetwood Mac songs came out before they were both born, so we couldn't use it to get an idea of Ellise's music preference.
+
 ```{r}
 DC$album_release_date <- as.Date(DC$album_release_date)
 
@@ -366,6 +370,8 @@ ggplot(average_data, aes(x = album_release_date)) +
     axis.title.x = element_text(margin = margin(t = 10)), 
   )
 ```
+
+Contrary to Taylor Swift, Doja Cat appears to have released songs with high average danceability, valence, and energy values around the years 2020-2022. Assuming this mimics Jaclyn's listening habits, we could say that she and Ellise had different ways of using music to cope with the pandemic. Unfortunately, the limited amount of data for Doja Cat makes it hard to learn much else.
 
 ```{r}
 PP$album_release_date <- as.Date(PP$album_release_date)
@@ -399,6 +405,8 @@ ggplot(average_data, aes(x = album_release_date)) +
     axis.title.x = element_text(margin = margin(t = 10)), 
   )
 ```
+
+Again, due to the limited data available for Peso Pluma's songs, it's hard for us to learn much from this plot. Over time, we can loosely say that his songs became more danceable, energetic, and had higher valences. However, overall, these scores remained relatively the same over the years (between 0.5-0.8).
 
 # Citations: 
 
