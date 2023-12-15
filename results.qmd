@@ -36,6 +36,10 @@ FM <- subset(FM, select = c("artist_name", "album_release_date", "danceability",
 DC <- subset(DC, select = c("artist_name", "album_release_date", "danceability", "valence", "energy", "track_name", "album_name"))
 PP <- subset(PP, select = c("artist_name", "album_release_date", "danceability", "valence", "energy", "track_name", "album_name"))
 
+print(sum(is.na(FM)))
+print(sum(is.na(TS)))
+print(sum(is.na(DC)))
+print(sum(is.na(PP)))
 
 write.csv(TS, file.path(desktop_path, "TS.csv"))
 write.csv(FM, file.path(desktop_path, "FM.csv"))
@@ -72,7 +76,7 @@ ggplot(energy_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value, fill 
   scale_fill_manual(values = artist_colors) + 
   theme(
     axis.title.y = element_text(margin = margin(r = 15)),  
-    axis.title.x = element_text(margin = margin(t = 12))
+    axis.title.x = element_text(margin = margin(t = 10))
   )
 ```
 Ellise's top two artists overall tend to have lower energy songs than Jaclyn's top artists, although they are all pretty close on average.
@@ -103,7 +107,7 @@ ggplot(valence_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value, fill
   scale_fill_manual(values = artist_colors) + 
   theme(
     axis.title.y = element_text(margin = margin(r = 15)),  
-    axis.title.x = element_text(margin = margin(t = 12))
+    axis.title.x = element_text(margin = margin(t = 10))
   )
 ```
 Since Peso Pluma and Doja Cat have the first and third highest valence scores, overall, it appears that Jaclyn likes music with a higher valence slightly more than Ellise does. 
@@ -133,7 +137,7 @@ ggplot(danceability_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value,
   scale_fill_manual(values = artist_colors) + 
   theme(
     axis.title.y = element_text(margin = margin(r = 15)),  
-    axis.title.x = element_text(margin = margin(t = 12))
+    axis.title.x = element_text(margin = margin(t = 10))
   )
 ```
 Since Doja Cat and Peso Pluma are Jaclyn's top artists, this indicates that she prefers more danceable music than Ellise. However, this is a bit surprising considering Ellise is a dancer!
@@ -278,11 +282,131 @@ Again, like Doja Cat, Peso Pluma has very few songs. The large majority of them 
 
 
 
-Now that we know that Taylor Swift and Fleetwood Mac both have many more songs than Doja Cat and Peso Pluma, we want to try comparing the top 50 songs from each artist. This may even the playing field a little. 
+Unfortunately, we don't have access to our exact listening histories. However, we can try to predict our listening trends based on the release dates of songs from our top artists. This of course isn't fully accurate because most of Fleetwood Mac's songs were released before we were born.
+```{r}
+TS$album_release_date <- as.Date(TS$album_release_date)
+
+# Calculate average values for each release date
+average_data <- TS %>%
+  group_by(album_release_date) %>%
+  summarise(avg_energy = mean(energy),
+            avg_valence = mean(valence),
+            avg_danceability = mean(danceability))
+
+ggplot(average_data, aes(x = album_release_date)) +
+  geom_point(aes(y = avg_energy, color = "Energy")) +
+  geom_point(aes(y = avg_valence, color = "Valence")) +
+  geom_point(aes(y = avg_danceability, color = "Danceability")) +
+  geom_line(aes(y = avg_energy, color = "Energy"), linewidth = 0.6) +
+  geom_line(aes(y = avg_valence, color = "Valence"), linewidth = 0.6) +
+  geom_line(aes(y = avg_danceability, color = "Danceability"), linewidth = 0.6) +
+  labs(title = expression("Average Energy, Valence, and Danceability Over Time of" ~ bold("Taylor Swift's") ~ "Songs"),
+       x = "Release date",
+       y = "Average value per date",
+       color = "Variable") +
+  scale_x_date(date_breaks = "2 year", date_labels = "%Y") +
+  scale_color_manual(values = c("Energy" = "red", "Valence" = "blue", "Danceability" = "green")) + 
+  theme(title = element_text(size = 9.5), axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.title.y = element_text(margin = margin(r = 15)),  
+    axis.title.x = element_text(margin = margin(t = 10)), 
+  )
+```
 
 ```{r}
+FM$album_release_date <- as.Date(FM$album_release_date)
 
+# Some NAs are introduced when as.Date is called. This is because only the year of their release is listed. We will omit them because we cannot work with them and we have plenty of data. 
+FM <- na.omit(FM)
+
+# Calculate average values for each release date
+average_data <- FM %>%
+  group_by(album_release_date) %>%
+  summarise(avg_energy = mean(energy),
+            avg_valence = mean(valence),
+            avg_danceability = mean(danceability))
+
+ggplot(average_data, aes(x = album_release_date)) +
+  geom_point(aes(y = avg_energy, color = "Energy")) +
+  geom_point(aes(y = avg_valence, color = "Valence")) +
+  geom_point(aes(y = avg_danceability, color = "Danceability")) +
+  geom_line(aes(y = avg_energy, color = "Energy"), linewidth = 0.6) +
+  geom_line(aes(y = avg_valence, color = "Valence"), linewidth = 0.6) +
+  geom_line(aes(y = avg_danceability, color = "Danceability"), linewidth = 0.6) +
+  labs(title = expression("Average Energy, Valence, and Danceability Over Time of" ~ bold("Fleetwood Mac's") ~ "Songs"),
+       x = "Release date",
+       y = "Average value per date",
+       color = "Variable") +
+  scale_x_date(date_breaks = "2 year", date_labels = "%Y") +
+  scale_y_continuous(breaks = seq(0, 1, by = 0.1)) +
+  scale_color_manual(values = c("Energy" = "red", "Valence" = "blue", "Danceability" = "green")) + 
+  theme(title = element_text(size = 9.5), axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.title.y = element_text(margin = margin(r = 15)),  
+    axis.title.x = element_text(margin = margin(t = 10)), 
+  )
 ```
+```{r}
+DC$album_release_date <- as.Date(DC$album_release_date)
+
+# Calculate average values for each release date
+average_data <- DC %>%
+  group_by(album_release_date) %>%
+  summarise(avg_energy = mean(energy),
+            avg_valence = mean(valence),
+            avg_danceability = mean(danceability))
+
+ggplot(average_data, aes(x = album_release_date)) +
+  geom_point(aes(y = avg_energy, color = "Energy")) +
+  geom_point(aes(y = avg_valence, color = "Valence")) +
+  geom_point(aes(y = avg_danceability, color = "Danceability")) +
+  geom_line(aes(y = avg_energy, color = "Energy"), linewidth = 0.6) +
+  geom_line(aes(y = avg_valence, color = "Valence"), linewidth = 0.6) +
+  geom_line(aes(y = avg_danceability, color = "Danceability"), linewidth = 0.6) +
+  labs(title = expression("Average Energy, Valence, and Danceability Over Time of" ~ bold("Doja Cat's") ~ "Songs"),
+       x = "Release date",
+       y = "Average value per date",
+       color = "Variable") +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  scale_y_continuous(breaks = seq(0, 1, by = 0.1)) +
+  scale_color_manual(values = c("Energy" = "red", "Valence" = "blue", "Danceability" = "green")) + 
+  theme(title = element_text(size = 9.5), axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.title.y = element_text(margin = margin(r = 15)),  
+    axis.title.x = element_text(margin = margin(t = 10)), 
+  )
+```
+
+```{r}
+PP$album_release_date <- as.Date(PP$album_release_date)
+
+# Some NAs are introduced when as.Date is called. This is because only the year of their release is listed. We will omit them because we cannot work with them. 
+PP <- na.omit(PP)
+
+# Calculate average values for each release date
+average_data <- PP %>%
+  group_by(album_release_date) %>%
+  summarise(avg_energy = mean(energy),
+            avg_valence = mean(valence),
+            avg_danceability = mean(danceability))
+
+ggplot(average_data, aes(x = album_release_date)) +
+  geom_point(aes(y = avg_energy, color = "Energy")) +
+  geom_point(aes(y = avg_valence, color = "Valence")) +
+  geom_point(aes(y = avg_danceability, color = "Danceability")) +
+  geom_line(aes(y = avg_energy, color = "Energy"), linewidth = 0.6) +
+  geom_line(aes(y = avg_valence, color = "Valence"), linewidth = 0.6) +
+  geom_line(aes(y = avg_danceability, color = "Danceability"), linewidth = 0.6) +
+  labs(title = expression("Average Energy, Valence, and Danceability Over Time of" ~ bold("Peso Pluma's") ~ "Songs"),
+       x = "Release date",
+       y = "Average value per date",
+       color = "Variable") +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  scale_y_continuous(breaks = seq(0, 1, by = 0.1)) +
+  scale_color_manual(values = c("Energy" = "red", "Valence" = "blue", "Danceability" = "green")) + 
+  theme(title = element_text(size = 9.5), axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.title.y = element_text(margin = margin(r = 15)),  
+    axis.title.x = element_text(margin = margin(t = 10)), 
+  )
+```
+
 
 
 # Citations: 
