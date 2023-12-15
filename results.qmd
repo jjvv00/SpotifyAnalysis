@@ -1,6 +1,6 @@
 # Results
 
-## Average energy, valence, danceability % comparisons between our top artists
+## Average energy, valence, danceability percentage comparisons between our top artists
 
 Get all required libraries:
 ```{r}
@@ -140,6 +140,8 @@ ggplot(danceability_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value,
 
 Since Doja Cat and Peso Pluma are Jaclyn's top artists, this indicates that she prefers more danceable music than Ellise. However, this is a bit surprising considering Ellise is a dancer!
 
+## Moods of all songs for our top artists based on energy and valence
+
 Now we will compare the moods of each artist based on the moods of each of their songs. This is based on James Russell's circumplex model as referenced in "Feel the Moosic: Emotion-based Music Selection and Recommendation" by Patrick Helmholz, Michael Meyer, Susanne Robra-Bissantz. In this paper, they classify songs into one of four different mood categories (happy, angry, sad, or relaxed) based on their energy and valence scores. We will use this model to display the most frequent song moods for each of our top artists. This should help us compare the moods of our music preferences. 
 
 ```{r}
@@ -278,6 +280,8 @@ ggplot(PP, aes(x = valence, y = energy, color = quadrant)) +
 ```
 
 Again, like Doja Cat, Peso Pluma has very few songs. The large majority of them are considered happy. 
+
+## Average energy, valence, and danceability of our top artists songs over time
 
 Unfortunately, we don't have access to our exact listening histories. However, we can try to predict our listening trends based on the release dates of songs from our top artists. This of course isn't fully accurate because most of Fleetwood Mac's songs were released before we were born.
 
