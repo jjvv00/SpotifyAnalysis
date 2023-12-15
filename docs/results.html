@@ -282,14 +282,15 @@ The following object is masked from 'package:spotifyr':
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>DC <span class="ot">&lt;-</span> <span class="fu">subset</span>(DC, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"artist_name"</span>, <span class="st">"album_release_date"</span>, <span class="st">"danceability"</span>, <span class="st">"valence"</span>, <span class="st">"energy"</span>, <span class="st">"track_name"</span>, <span class="st">"album_name"</span>))</span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>PP <span class="ot">&lt;-</span> <span class="fu">subset</span>(PP, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"artist_name"</span>, <span class="st">"album_release_date"</span>, <span class="st">"danceability"</span>, <span class="st">"valence"</span>, <span class="st">"energy"</span>, <span class="st">"track_name"</span>, <span class="st">"album_name"</span>))</span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># desktop_path &lt;- file.path(Sys.getenv("HOME"), "Desktop")</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(TS, file.path(desktop_path, "TS.csv"))</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(FM, file.path(desktop_path, "FM.csv"))</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(DC, file.path(desktop_path, "DC.csv"))</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(PP, file.path(desktop_path, "PP.csv"))</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Display a message indicating the successful save</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># cat("Data frames have been saved to:", desktop_path, "\n")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Code to save subset data to desktop</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># desktop_path &lt;- file.path(Sys.getenv("HOME"), "Desktop")</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(TS, file.path(desktop_path, "TS.csv"))</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(FM, file.path(desktop_path, "FM.csv"))</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(DC, file.path(desktop_path, "DC.csv"))</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(PP, file.path(desktop_path, "PP.csv"))</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Display a message indicating the successful save</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># cat("Data frames have been saved to:", desktop_path, "\n")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>First, find the average energy across all of the songs for each artist separately. Then create a new dataframe with all four of these energy averages. We will display this data using a bar graph.</p>
@@ -586,6 +587,7 @@ The following object is masked from 'package:spotifyr':
 <p><img src="results_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>The most notable trends in this plot are the low average danceability, valence, and energy values around the years 2020-2022. This is really interesting because this is around the same time as the COVID-19 pandemic.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -624,6 +626,7 @@ The following object is masked from 'package:spotifyr':
 <p><img src="results_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>This plot is all over the place. Fleetwood Mac has a very large list of songs, many with very different sounds. Luckily, for the task of comparing Ellise and Jaclyn’s music tastes over time, this plot wouldn’t be very useful anyway. Many Fleetwood Mac songs came out before they were both born, so we couldn’t use it to get an idea of Ellise’s music preference.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -659,6 +662,7 @@ The following object is masked from 'package:spotifyr':
 <p><img src="results_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Contrary to Taylor Swift, Doja Cat appears to have released songs with high average danceability, valence, and energy values around the years 2020-2022. Assuming this mimics Jaclyn’s listening habits, we could say that she and Ellise had different ways of using music to cope with the pandemic. Unfortunately, the limited amount of data for Doja Cat makes it hard to learn much else.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -697,6 +701,7 @@ The following object is masked from 'package:spotifyr':
 <p><img src="results_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Again, due to the limited data available for Peso Pluma’s songs, it’s hard for us to learn much from this plot. Over time, we can loosely say that his songs became more danceable, energetic, and had higher valences. However, overall, these scores remained relatively the same over the years (between 0.5-0.8).</p>
 </section>
 <section id="citations" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Citations:</h1>

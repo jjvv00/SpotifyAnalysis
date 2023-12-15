@@ -34,6 +34,7 @@ FM <- subset(FM, select = c("artist_name", "album_release_date", "danceability",
 DC <- subset(DC, select = c("artist_name", "album_release_date", "danceability", "valence", "energy", "track_name", "album_name"))
 PP <- subset(PP, select = c("artist_name", "album_release_date", "danceability", "valence", "energy", "track_name", "album_name"))
 
+# Code to save subset data to desktop
 # desktop_path <- file.path(Sys.getenv("HOME"), "Desktop")
 # write.csv(TS, file.path(desktop_path, "TS.csv"))
 # write.csv(FM, file.path(desktop_path, "FM.csv"))
@@ -73,6 +74,7 @@ ggplot(energy_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value, fill 
     axis.title.x = element_text(margin = margin(t = 12))
   )
 ```
+
 Ellise's top two artists overall tend to have lower energy songs than Jaclyn's top artists, although they are all pretty close on average.
 
 
@@ -104,6 +106,7 @@ ggplot(valence_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value, fill
     axis.title.x = element_text(margin = margin(t = 12))
   )
 ```
+
 Since Peso Pluma and Doja Cat have the first and third highest valence scores, overall, it appears that Jaclyn likes music with a higher valence slightly more than Ellise does. 
 
 
@@ -134,11 +137,11 @@ ggplot(danceability_data, aes(x = fct_rev(fct_reorder(Label, Value)), y = Value,
     axis.title.x = element_text(margin = margin(t = 12))
   )
 ```
+
 Since Doja Cat and Peso Pluma are Jaclyn's top artists, this indicates that she prefers more danceable music than Ellise. However, this is a bit surprising considering Ellise is a dancer!
 
-
-
 Now we will compare the moods of each artist based on the moods of each of their songs. This is based on James Russell's circumplex model as referenced in "Feel the Moosic: Emotion-based Music Selection and Recommendation" by Patrick Helmholz, Michael Meyer, Susanne Robra-Bissantz. In this paper, they classify songs into one of four different mood categories (happy, angry, sad, or relaxed) based on their energy and valence scores. We will use this model to display the most frequent song moods for each of our top artists. This should help us compare the moods of our music preferences. 
+
 ```{r}
 # Mutate data: add an extra column "quadrant" to hold the mood of the song based on its energy/valence
 TS <- TS %>%
@@ -171,8 +174,8 @@ ggplot(TS, aes(x = valence, y = energy, color = quadrant)) +
   scale_color_manual(values = quadrant_colors) +
   theme(legend.position = "right")
 ```
-It appears that the majority of Taylor Swift's songs are angry and happy. This makes sense as her songs are typically very passionate and have a strong message. However, I question how well these calculations can be trusted because using this method, her song "I Knew You Were Trouble." was classified as relaxed when it should definitely be considered angry. 
 
+It appears that the majority of Taylor Swift's songs are angry and happy. This makes sense as her songs are typically very passionate and have a strong message. However, I question how well these calculations can be trusted because using this method, her song "I Knew You Were Trouble." was classified as relaxed when it should definitely be considered angry. 
 
 ```{r}
 FM <- FM %>%
@@ -205,6 +208,7 @@ ggplot(FM, aes(x = valence, y = energy, color = quadrant)) +
   scale_color_manual(values = quadrant_colors) +
   theme(legend.position = "right")
 ```
+
 Fleetwood Mac appears to have a pretty even distribution of moods across their songs. This makes sense because they have the most songs out of all artists in our study and they have been making music over many decades. It appears that they have the most happy songs overall.
 
 ```{r}
@@ -272,9 +276,11 @@ ggplot(PP, aes(x = valence, y = energy, color = quadrant)) +
   scale_color_manual(values = quadrant_colors) +
   theme(legend.position = "right")
 ```
+
 Again, like Doja Cat, Peso Pluma has very few songs. The large majority of them are considered happy. 
 
 Unfortunately, we don't have access to our exact listening histories. However, we can try to predict our listening trends based on the release dates of songs from our top artists. This of course isn't fully accurate because most of Fleetwood Mac's songs were released before we were born.
+
 ```{r}
 TS$album_release_date <- as.Date(TS$album_release_date)
 
@@ -412,5 +418,3 @@ Again, due to the limited data available for Peso Pluma's songs, it's hard for u
 
 (paper and image)
 Helmholz, P., Meyer, M., & Robra-Bissantz, S. (2019, June 12). Feel the Moosic: Emotion-based Music Selection and Recommendation. https://doi.org/10.18690/978-961-286-280-0.11 
-
-

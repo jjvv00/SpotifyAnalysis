@@ -1,1 +1,11 @@
 # Conclusion
+
+In our exploration, we explored Ellise’s and Jaclyn’s top artists of 2023—Taylor Swift, Fleetwood Mac, Doja Cat, and Peso Pluma—analyzing their moods using Spotify's 'sportifyr' wrapper and variables like energy, valence, and danceability in order to compare their musical preferences. The energy levels among artists were relatively close, with Peso Pluma leading at 0.65 and Fleetwood Mac trailing at 0.56. Danceability showed minor variations, with Doja Cat at 0.74 and Fleetwood Mac at 0.55. Valence differed more significantly, revealing a trend in Jaclyn's preference for upbeat and happy songs compared to Ellise.
+
+We employed James Russell's circumplex model to categorize songs into moods based on energy and valence. Jaclyn's playlist leaned towards happy or angry, while Ellise embraced a broader spectrum of moods, albeit with variations in artists' song counts impacting our conclusions.
+
+Attempting to visualize our listening habits over time, we made the assumption that we listened to songs upon release. This suggested Ellise favored lower danceability, valence, and energy during the pandemic, while Jaclyn did the opposite. However, this assumption limits the scope, especially for older artists like Fleetwood Mac.
+
+The D3 interactive graph highlighted challenges due to varying discography sizes, with Taylor Swift and Fleetwood Mac dominating. While both shared danceability and energy distributions, Fleetwood Mac trended higher in valence. Doja Cat, with a smaller discography, showcased high danceability and varying valence. Peso Pluma clustered in the top-middle, indicating high danceability and valence, with energy variations. Comparing artists, Jaclyn's tended towards higher valence and danceability, while Ellise's displayed a broader range of moods.
+
+Looking ahead, accessing personal Spotify data would enhance precision, allowing us to analyze our actual listening habits. Expanding to more artists and exploring additional variables or R wrappers could provide deeper insights. While obtaining direct access to the Spotify API posed challenges, it remains a potential source for richer information. Through this exploration, we gained valuable insights into Spotify's API and R packages for extracting music data.
